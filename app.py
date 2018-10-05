@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
-from service import Browser
-
+from service import BrowserService
+from settings import user, passwd, meal
 
 if __name__ == "__main__":
-    browser = Browser()
+    my_browser = BrowserService(login=user, password=passwd)
 
-    browser.login_to_google()
-    browser.open_meal_order()
-    order_placed = browser.is_order()
+    google_log = my_browser.log_to_google()
 
-    if not order_placed:
-        browser.order_meal()
+    if google_log:
+        my_browser.order_meal(meal=meal)
