@@ -10,7 +10,7 @@ class Browser:
         self.driver = self.create_web_driver()
 
     def create_web_driver(self):
-        my_display = Display(visible=1, size=(1024,768)).start()
+        my_display = Display(visible=1, size=(1024, 768)).start()
 
         driver = webdriver.Firefox()
         driver.implicitly_wait(15)
@@ -25,7 +25,7 @@ class Browser:
         try:
             return self.driver.find_element_by_id(id)
         except:
-            raise Exception("cannot find element with id %s" %id)
+            raise Exception("cannot find element with id %s" % id)
 
     def get_element_by_xpath(self, xpath):
         try:
@@ -56,14 +56,17 @@ class BrowserService:
         pass_form_present = self.browser.get_element_by_id("profileIdentifier")
         if pass_form_present:
             pass_form = self.browser.get_element_by_xpath(
-                "/html/body/div[1]/div[1]/div[2]/div[2]/div/div/div[2]/div/div[1]/div/"
-                "form/content/section/div/content/div[1]/div/div[1]/div/div[1]/input")
+                "/html/body/div[1]/div[1]/div[2]/"
+                "div[2]/div/div/div[2]/div/div[1]/div/"
+                "form/content/section/div/content/div[1]/"
+                "div/div[1]/div/div[1]/input")
             self.browser.send_string(pass_form, self.password)
             submit_button = self.browser.get_element_by_id("passwordNext")
             self.browser.click_element(submit_button)
             self.browser.open_page("http://google.com")
             login_avatar = self.browser.get_element_by_xpath(
-                "/html/body/div/div[3]/div[1]/div/div/div/div[2]/div[4]/div[1]/a")
+                "/html/body/div/div[3]/div[1]/"
+                "div/div/div/div[2]/div[4]/div[1]/a")
             if login_avatar:
                 return True
         else:
@@ -87,4 +90,3 @@ class BrowserService:
 #         order_submit = self.driver.find_element_by_xpath(
 #         "/html/body/div[2]/div/div[2]/section/div/button")
 #         order_submit.click()
-#

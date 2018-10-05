@@ -4,6 +4,7 @@ from settings import selenium_wait
 import logging
 import sys
 
+
 def lazy_wait(func):
     def wrapper(*args, **kwargs):
         sleep(selenium_wait)
@@ -12,18 +13,20 @@ def lazy_wait(func):
 
     return wrapper
 
+
 def decorate_class(decorator):
     def wrapper(cls):
         for attr in cls.__dict__:
-            if callable(getattr(cls,attr)):
+            if callable(getattr(cls, attr)):
                 setattr(cls, attr, decorator(getattr(cls, attr)))
         return cls
 
     return wrapper
 
+
 def decorate_object(cls):
     for attr in cls.__dict__:
-        if callable(getattr(cls,attr)):
+        if callable(getattr(cls, attr)):
             setattr(cls, attr, lazy_wait(getattr(cls, attr)))
     return cls
 
@@ -42,8 +45,10 @@ def create_logger():
 
     return logger
 
+
 def auto_logger(func):
     logger = create_logger()
+
     def wrapper(*args, **kwargs):
         try:
             return func(*args, **kwargs)
